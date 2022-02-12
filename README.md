@@ -4,9 +4,9 @@ this web project was created to transfer my console applications for image proce
 Developed on the course "Fundamentals of Audiovisual Information Processing".
 To a convenient web interface.
 
-####to  run:
-     git clone https://github.com/RAlekseev/img_processing.git
-     python manage.py runserver
+### to  run:
+    git clone https://github.com/RAlekseev/img_processing.git
+    python manage.py runserver
 
 ## Technologies
 - Python
