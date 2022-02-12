@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %} Результаты запросов {% endblock %}
+
+{% block content %}
+
+    {% for result in laba_3 %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+
+                            <b>
+                                Лабораторная работа №3.</b>{{ result.title }}
+
+                        </h4>
+                        {#                        <i>#}
+                        {#                            Каждый студент выполняет все задания. Стандартные функции передискретизации,#}
+                        {#                        </i>#}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_after.url }}" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img src="{{ result.Gx.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="{{ result.Gy.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="{{ result.G.url }}" width="100%">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+
+                            <b>
+                                Лабораторная работа №1.</b>{{ result.title }}
+
+                        </h4>
+                        {#                        <i>#}
+                        {#                            Каждый студент выполняет все задания. Стандартные функции передискретизации,#}
+                        {#                        </i>#}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_after.url }}" width="100%">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

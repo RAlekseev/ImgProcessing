@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 8 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>Лабораторная работа No8.</b> Улучшение изображений. Контрастирование
+
+                    </h4>
+
+                </div>
+                <div class="card-body">
+                    <p>Каждый студент реализуется один из методов улучшения изображений.</p>
+                    <ol>
+                        <li>
+                            Реализовать метод:
+                            <ul>
+                                <li>
+                                    <b>
+                                    Метод степенного преобразования передаточной функции;
+                                    </b>
+                                </li>
+                                <li>Метод логарифмического преобразования передаточной функции;</li>
+                                <li>Метод кусочно-линейного изменения передаточной функции;</li>
+                                <li>Метод выравнивания гистограмм.</li>
+                            </ul>
+                        </li>
+                        <li>После реализации метода попиксельно применить метод к цветному изображению.</li>
+                        <li>Провести эксперимент: варьируйте параметры алгоритма и сделайте выводы о том,
+                            какие значения более предпочтительны для разных изображений (текста,
+                            фотографий, рисунка и т.п.)
+                        </li>
+                        <li>
+                            Демонстрируется:
+                            <ul>
+                                <li>Исходное и результирующее изображение</li>
+                                <li>гистограмма исходного и результирующего изображения</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+                        <b>Лабораторная работа №8</b>
+                    </h4>
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'laba_8:execute' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="fileinput fileinput-new text-center col-xl-12 ml-auto mr-auto"
+                             data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                {% if original_img %}
+                                    <img src="{{ original_img }}" alt="...">
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                                <span class="btn btn-rose btn-round btn-file"><span
+                                                        class="fileinput-new">Выберите изображение</span>
+                                                <span class="fileinput-exists">Редактировать</span>
+                                                    <input type="file" name="img" required/></span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="input-group form-control-lg">
+                                    <h6>Значение K определяет, какую часть границы объекта взять в качестве самого объекта.</h6>
+                                    <p>
+                                    <b>K</b> = -0.2 задает достаточно хорошее разделение объектов, если они представлены черным
+                                    цветом;<br>
+                                    <b>K</b> = 0.2, если объекты представлены белым цветом.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">aspect_ratio</i></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInput1"
+                                               class="bmd-label-floating">level:</label>
+                                        <input type="text" class="form-control" id="exampleInput1" name="level"
+                                               value="196">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-finish btn-fill btn-rose btn-wd">
+                                            Отправить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+                            {{ result.title }}
+
+                        </h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_after.url }}" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="/media/images/laba_8/{{ result.id }}/histogram_original.png" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="/media/images/laba_8/{{ result.id }}/histogram_processed.png" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

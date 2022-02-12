@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 3 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>
+                            Лабораторная работа No3.</b> Выделение контуров на изображении
+
+                    </h4>
+                    <i>
+                        Выполняется одно задание на выбор. В качестве входных данных берётся цветное
+                        или полутоновое изображение. Цветное изображение сводится к полутоновому.
+                        Сначала рассчитывается три градиентные матрицы: Gx, Gy, G.
+                        Для визуализации в виде полутоновых изображений матрицы нормируются так, что
+                        значения яркости лежат от 0 до 255. Затем для матрицы G опытным путём подбирается порог
+                        бинаризации для получения контурного изображения.
+                        Демонстрируется:
+
+                        <ol>
+                            <li>Исходное цветное изображение</li>
+                            <li>Полутоновое изображение</li>
+                            <li>Нормализованные градиентные матрицы Gx, Gy, G</li>
+                            <li>Бинаризованная градиентная матрица G</li>
+                        </ol>
+                        Варианты:
+                    </i>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+
+                            <tr>
+                                <td colspan="5" class="">
+                                    <h4>
+                                        <ol>
+                                            <li>
+                                                <a href="{% url 'laba_3:roberts-index' %}"><b>
+                                                    Оператор Робертса 2x2
+                                                </b></a>
+                                            </li>
+                                            <li>
+                                                Оператор Собеля 3x3
+                                            </li>
+                                            <li>
+                                                Оператор Шарра 3x3
+                                            </li>
+                                            <li>
+                                                Оператор Прюитт 3x3
+                                            </li>
+                                            <li>
+                                                Оператор Прюитт 5x5
+                                            </li>
+
+
+                                        </ol>
+                                    </h4>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in laba_3 %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+
+                            <b>
+                                Лабораторная работа №3.</b>{{ result.title }}
+
+                        </h4>
+                        {#                        <i>#}
+                        {#                            Каждый студент выполняет все задания. Стандартные функции передискретизации,#}
+                        {#                        </i>#}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_after.url }}" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img src="{{ result.Gx.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="{{ result.Gy.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="{{ result.G.url }}" width="100%">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

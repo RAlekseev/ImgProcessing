@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная работа 1.2 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>
+                            Лабораторная работа №1.</b> Приведение полноцветного изображения к полутоновому.
+                    </h4>
+                    <div class="text-left">
+                        <i>
+                            <ol>
+                                <li> Загрузка полноцветного изображения в формате *.bmp (3 цветовых канала);</li>
+                                <li> Создание нового изображения в режиме полутона (1 яркостный канал);</li>
+                                <li> Попиксельный расчёт яркости нового изображения на основе полноцветного путём усреднения по каналам;</li>
+                                <li> Сохранение полутонового изображения в формат *.bmp.</li>
+                            </ol>
+                        </i>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'laba_1:grayscale' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="fileinput fileinput-new text-center col-xl-12 ml-auto mr-auto"
+                             data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                {% if original_img %}
+                                    <img src="{{ original_img }}" alt="...">
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                                <span class="btn btn-rose btn-round btn-file"><span
+                                                        class="fileinput-new">Выберите изображение</span>
+                                                <span class="fileinput-exists">Редактировать</span>
+                                                    <input type="file" name="img" required/></span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                            </div>
+                        </div>
+
+
+
+                                <div class="input-group form-control-lg">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-finish btn-fill btn-rose btn-wd">
+                                            Отправить
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

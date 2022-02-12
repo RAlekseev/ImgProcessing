@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="#">
+                        {% load static %}
+                        <img class="img" src="{% static 'wbadmin/assets/img/me.png' %}"/>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-category text-gray">
+                        Роль: Администратор</h6>
+                    <h4 class="card-title">Алексеев Роман Максимович</h4>
+                    <p class="card-description">
+                        Группа: Б18-514<br>
+
+
+                    </p>
+                </div>
+            </div>
+            <button class="btn btn-warning btn-block" data-toggle="modal" data-target="#changePassModal">
+                <i class="material-icons">vpn_key</i> Change password
+            </button>
+            <button class="btn btn-success btn-block" data-toggle="modal" data-target="#docsModal">
+                <i class="material-icons">camera_front</i> Documents
+            </button>
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#ordersModal">
+                <i class="material-icons">edit</i> Orders
+            </button>
+            <button class="btn btn-success btn-block" data-toggle="modal" data-target="#ttLinkModal">
+                <i class="material-icons">link</i> Change link to classes
+            </button>
+
+            <div class="card">
+                <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment_ind</i>
+                    </div>
+
+                    <h4 class="card-title">
+                        <a class="collapsed text-primary" data-toggle="collapse" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            Information
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                    </h4>
+
+                </div>
+                <div class="card-body">
+                    {#                            @include('lms.common.users.info')#}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <br>
+                        <div class="text-center">
+                            <h4 class="text-black">
+                                <a href="#daily_time_table" role="button"
+                                   data-slide="prev">
+                                    <i class="fa fa-chevron-left"></i>
+                                </a>
+                                <b>Monday</b>,
+                                25.7.2021
+                                <a href="#daily_time_table" role="button"
+                                   data-slide="next">
+                                    <i class="fa fa-chevron-right"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+
+                                    <tr>
+                                        <td colspan="5" class="text-center bg-success">
+                                            <h3 class="text-white">
+                                                No classes
+                                            </h3>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{#    <div class="modal fade" id="changePassModal" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"#}
+{#         aria-hidden="true">#}
+{#    <div class="modal-dialog">#}
+{#    <div class="modal-content">#}
+{#        <div class="modal-header">#}
+{#            <h4 class="modal-title">Change password</h4>#}
+{#            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">#}
+{#                <i class="material-icons">clear</i>#}
+{#            </button>#}
+{#        </div>#}
+{#        <div class="modal-body">#}
+{#            <form method="post">#}
+{#                @csrf#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6">#}
+{#                        <div class="form-group">#}
+{#                            <label class="bmd-label-floating">Current Password</label>#}
+{#                            <input type="password" class="form-control" name="current_password" required>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6">#}
+{#                        <div class="form-group">#}
+{#                            <label class="bmd-label-floating">New Password</label>#}
+{#                            <input type="password" class="form-control" name="password" required>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6">#}
+{#                        <div class="form-group">#}
+{#                            <label class="bmd-label-floating">Password confirmation</label>#}
+{#                            <input type="password" class="form-control has-feedback"#}
+{#                                   name="password_confirmation" required>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <button type="submit" class="btn btn-primary">Change password</button>#}
+{#                    <button type="button" class="btn btn-danger btn-link"#}
+{#                            data-dismiss="modal">Close#}
+{#                    </button>#}
+{#                </div>#}
+{#            </form>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+
+
+
+
+{% endblock %}

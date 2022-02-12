@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 6 {% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title">Лабораторная работа № 6. Классификация на основе признаков, анализ
+                        профилей</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'laba_6:execute' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Текст для лабораторной</label>
+                                    <input type="text" class="form-control" name="text">
+                                </div>
+                            </div>
+                            {#                        </div>#}
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select" data-style="select-with-transition" name="font"
+                                            title="Выбрать кафедру">
+                                        {% for font in fonts %}
+                                            <option value="{{ font }}">{{ font }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select class="custom-select" data-style="select-with-transition" name="font_size"
+                                            title="Выбрать кафедру">
+                                        <option value="6">6</option>
+                                        <option value="10">10</option>
+                                        <option value="12">12</option>
+                                        <option value="14">14</option>
+                                        <option value="20">20</option>
+                                        <option value="24">24</option>
+                                        <option value="28">28</option>
+                                        <option value="32">32</option>
+                                        <option value="38">38</option>
+                                        <option value="42">42</option>
+                                        <option selected value="52">52</option>
+                                        <option value="62">62</option>
+                                        <option value="76">76</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+                            {{ result.title }}
+
+                        </h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Original</th>
+                                        <th>Hypothesa</th>
+                                            {% for letter in letters %}
+                                                <th>{{ letter|truncatechars:2 }}</th>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {#    <tr>#}
+                                        {#        {% for letter in result.text %}#}
+                                        {#            <td>{{ letter }}</td>#}
+                                        {#        {% endfor %}#}
+                                        {#    </tr>#}
+                                        {% for hypothesis in result.letters %}
+                                            <tr>
+
+                                                <td><b>{{ result.order_letter }}</b></td>
+                                                <td><b>{{ result.hypo_letter }}</b></td>
+                                                {% for hypothesa, value in hypothesis.items %}
+                                                    <td>{{ hypothesa }}: {{ value }}</td>
+                                                {% endfor %}
+                                            </tr>
+
+                                        {% endfor %}
+
+
+
+                                        {#                                                <td>#}
+                                        {#                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/original/{{ prof }}" width="100%">#}
+                                        {#                                                </td>#}
+                                        {#                                                <td>#}
+                                        {#                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/vertical/{{ prof }}" width="100%">#}
+                                        {#                                                </td>#}
+                                        {#                                                <td>#}
+                                        {#                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/horizontal/{{ prof }}" width="100%">#}
+                                        {#                                                </td>#}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                Исходная строка: <b>{{ result.text }}</b><br>
+                                Полученная строка: <b>{{ result.final_text }}</b>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

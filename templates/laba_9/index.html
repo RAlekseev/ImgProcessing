@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 9 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>Лабораторная работа No9.</b> Обработка звуковой информации
+
+                    </h4>
+
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>С помощью микрофона записать образец собственного голоса для звука «А» с максимальным
+                            частотным диапазоном (от баса до визга и даже фальцета), так чтобы громкость была более
+                            менее одинаковой. Длительность примерно 15-30 секунд.
+                        </li>
+                        <li>Записать или найти звуки музыкального инструмента (не ударного) желательно с большим
+                            разнообразием нот.
+                        </li>
+                    </ul>
+                    <p>Для каждой записи:</p>
+
+                    <ol>
+                        <li>Построить спектрограмму и сохранить в файл, пользуясь оконным преобразованием Фурье с окном
+                            Ханна (например).
+                        </li>
+                        <li>
+                            Для записи голоса:
+                            <ol>
+                                <li>Найти минимальную и максимальную частоту голоса.</li>
+                                <li>Найти наиболее тембрально окрашенный основноий тон.</li>
+                                <li>Найти три самые сильные форманты для трёх разных основных тонов.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            Для записи инструмента:
+                            <ol>
+                                <li>Оценить уровень шума.</li>
+                                <li>Найти моменты времени, характеризующиеся наибольшей энергией.</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+                        <b>Лабораторная работа №9</b>
+                    </h4>
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'laba_9:execute' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="fileinput fileinput-new text-center col-xl-12 ml-auto mr-auto"
+                             data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                {% if original_img %}
+                                    <img src="{{ original_img }}" alt="...">
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                                <span class="btn btn-rose btn-round btn-file"><span
+                                                        class="fileinput-new">Выберите изображение</span>
+                                                <span class="fileinput-exists">Редактировать</span>
+                                                    <input type="file" name="img" required/></span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-finish btn-fill btn-rose btn-wd">
+                                            Отправить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+                            {{ result.title }}
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <audio controls>
+                                    <source src="{{ result.voice.url }}" type="audio/mpeg"/>
+                                </audio>
+                            </div>
+                        </div>
+                        <div class="row">
+                            Спектрограмма:
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_9/{{ result.id }}/spectrogram.png" width="100%">
+                            </div>
+                        </div>
+                        {#                        <div class="row">#}
+                        <p>Минимальная частота голоса: <b>{{ result.freq_min }}</b></p>
+                        <p>Максимальная частота голоса: <b>{{ result.freq_max }}</b></p>
+                        <br>
+                        <p>Наиболее тембрально окрашенный основноий тон: <b>{{ result.pow_timbre }}</b></p>
+                        {% for formants in result.formants %}
+                            {% for formant in formants %}
+                                [{{ formant }}]
+                            {% endfor %}
+                            <br>
+                        {% endfor %}
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_9/{{ result.id }}/noise-map.bmp" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="/media/images/laba_9/{{ result.id }}/noise-level.png" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="/media/images/laba_9/{{ result.id }}/energy.png" width="100%">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

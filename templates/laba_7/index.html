@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 7 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>Лабораторная работа No7.</b> Текстурный анализ
+
+                    </h4>
+
+                </div>
+                <div class="card-body">
+                    <p>Каждый студент выполняет задание</p>
+
+                    <ol>
+                        <li>Построить матрицу и рассчитать указанные признаки.</li>
+                        <li>Визуализировать построенную матрицу в 256 градациях серого.</li>
+                        <li>Сравнить вид матрицы и признаки для разных изображений.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+                        <b>Лабораторная работа №7</b>
+                    </h4>
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'laba_7:execute' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="fileinput fileinput-new text-center col-xl-12 ml-auto mr-auto"
+                             data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                {% if original_img %}
+                                    <img src="{{ original_img }}" alt="...">
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                                <span class="btn btn-rose btn-round btn-file"><span
+                                                        class="fileinput-new">Выберите изображение</span>
+                                                <span class="fileinput-exists">Редактировать</span>
+                                                    <input type="file" name="img" required/></span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-finish btn-fill btn-rose btn-wd">
+                                            Отправить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+                            {{ result.title }}
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                            <div class="col-lg-6">
+                                <img src="{{ result.img_after.url }}" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_7/{{ result.id }}/histogram.png" width="100%">
+                            </div>
+                        </div>
+
+{#                        <div class="row">#}
+                            <p> Среднее значение по Х: <b>{{ result.evidence.0 }}</b></p>
+                            <p> Среднее значение по Y: <b>{{ result.evidence.1 }}</b></p>
+{#                            <p> Среднее значение серого AV: <b>{{ result.evidence.2 }}</b></p>#}
+{#                        </div>#}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

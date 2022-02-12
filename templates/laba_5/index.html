@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 5 {% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title">Лабораторная работа № 5. Сегментация текста</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'laba_5:execute' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Текст для лабораторной</label>
+                                    <input type="text" class="form-control" name="text">
+                                </div>
+                            </div>
+                            {#                        </div>#}
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select class="custom-select" data-style="select-with-transition" name="font"
+                                            title="Выбрать кафедру">
+                                        {% for font in fonts %}
+                                            <option value="{{ font }}">{{ font }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for result in results %}
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <br>
+                    <div class="text-center">
+                        <h4 class="text-black">
+                            {{ result.title }}
+
+                        </h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="{{ result.img_before.url }}" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_5/{{ result.id }}/vertical.png" width="100%">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_5/{{ result.id }}/horizontal.png" width="100%">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="/media/images/laba_5/{{ result.id }}/bounds.png" width="100%">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Original img</th>
+                                            <th>Prof X</th>
+                                            <th>Prof Y</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for prof in result.profs %}
+                                                <tr>
+                                                <td>
+                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/original/{{ prof }}" width="100%">
+                                                </td>
+                                                <td>
+                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/vertical/{{ prof }}" width="100%">
+                                                </td>
+                                                <td>
+                                                     <img src="/media/images/laba_5/{{ result.id }}/char_profiles/horizontal/{{ prof }}" width="100%">
+                                                </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}

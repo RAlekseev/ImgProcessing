@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %} Передискретизация Лабораторная 1 {% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                <div class="text-center">
+                    <h4 class="text-black">
+
+                        <b>
+                            Лабораторная работа №1.</b> Передискретизация
+                    </h4>
+                    <div class="text-left">
+                        <i>
+                            <ol>
+                                <li> Загрузить полноцветное изображение в формате *.bmp;</li>
+                                <li> Растяжение (интерполяция) изображения в M раз;</li>
+                                <li> Сжатие (децимация) изображения в N раз;</li>
+                                <li> Передискретизация изображения в K=M/N раз путём растяжения и
+                                    последующего сжатия (в два прохода);
+                                </li>
+                                <li> Передискретизация изображения в K раз за один проход.</li>
+                            </ol>
+                        </i>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <form action="{% url 'laba_1:resampling' %}" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="fileinput fileinput-new text-center col-xl-12 ml-auto mr-auto"
+                             data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                {% if original_img %}
+                                    <img src="{{ original_img }}" alt="...">
+                                {% endif %}
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                            <div>
+                                                <span class="btn btn-rose btn-round btn-file"><span
+                                                        class="fileinput-new">Выберите изображение</span>
+                                                <span class="fileinput-exists">Редактировать</span>
+                                                    <input type="file" name="img" required/></span>
+                                <a href="#pablo" class="btn btn-danger btn-round fileinput-exists"
+                                   data-dismiss="fileinput"><i class="fa fa-times"></i> Удалить</a>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">expand</i></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInput1"
+                                               class="bmd-label-floating">M:</label>
+                                        <input type="text" class="form-control" id="exampleInput1" name="m"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">compress</i></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInput1"
+                                               class="bmd-label-floating">N:</label>
+                                        <input type="text" class="form-control" id="exampleInput1" name="n"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">aspect_ratio</i></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInput1"
+                                               class="bmd-label-floating">K:</label>
+                                        <input type="text" class="form-control" id="exampleInput1" name="k"
+                                               value="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="input-group form-control-lg">
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-finish btn-fill btn-rose btn-wd">
+                                            Отправить
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<div class="container">
+    <nav class="float-left">
+        <ul>
+            <li>
+{#                @if (\Illuminate\Support\Facades\Auth::check())#}
+{#                    <a target="_blank"#}
+{#                       href="{{asset('documents/instructions/' . config('lmsimu.roles')[\Illuminate\Support\Facades\Auth::user()->group->group_role] . '/en.pdf')}}">#}
+{#                        {{__('Instructions')}}#}
+{#                    </a>#}
+{#                @endif#}
+            </li>
+            <li>
+                <a href="#" data-toggle="modal" data-target="#supportModal">
+                    24/7 support
+                    <i class="material-icons">support_agent</i> (+996 990 000 302)
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="copyright float-right">
+        &copy;
+        <script>
+            document.write(new Date().getFullYear())
+        </script>
+        <a href="https://lms.kg/" target="_blank"></a>
+        with <i class="material-icons">favorite</i>
+    </div>
+
+    <div class="modal fade" id="supportModal" tabindex="-1" role="dialog" aria-labelledby="supportModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 class="text-center text-primary">
+                        If you encounter any errors or suggestions while using this system, immediately contact technical support.
+                    </h4>
+                    <h5>
+                        Support phone: <b>+996 990 000 302</b>
+                    </h5>
+                    <h5>
+                        Support email: <b>roma99@bk.ru</b>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

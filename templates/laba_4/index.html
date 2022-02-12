@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %} Лабораторная 4 {% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title">Лабораторная работа № 4. Выделение признаков символов</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+
+                            <tr>
+                                <th>Профиль X</th>
+                                <th>Профиль Y</th>
+                                <th>Изображение</th>
+                                <th>Символ</th>
+                                <th>Вес (масса чёрного)</th>
+                                <th>Удельный вес</th>
+                                <th>Центр тяжести</th>
+                                <th>Нормированный центр тяжести</th>
+                                <th>Осевой момент инерции (г/в)</th>
+                                <th>Номированный осевой момент инерции (г/в)</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for image, value in images.items %}
+                                <tr>
+                                <td>
+                                        <img src="/media/images/laba_4_prof/prof_x/{{ image }}">
+                                    </td>
+                                    <td>
+                                        <img src="/media/images/laba_4_prof/prof_y/{{ image }}">
+                                    </td>
+
+                                    <td class="table-success">
+{#                                        <div class="row">#}
+                                        <img src="/media/images/laba_4/{{ image }}" style="width: 50%">
+{#                                        </div>#}
+                                    </td>
+
+                                    <td>
+                                        {{ image }}
+                                    </td>
+
+                                    <td>
+                                        {{ value.weight_black }}
+                                    </td>
+
+                                    <td>
+                                        {{ value.weight_black_norm }}
+                                    </td>
+
+                                    <td>
+                                        ({{ value.x_coords }}, {{ value.y_coords }})
+                                    </td>
+                                    <td>
+                                        ({{ value.x_coords_norm }}, {{ value.y_coords_norm }})
+                                    </td>
+                                    <td>
+                                        ({{ value.x_axis_moment }}, {{ value.y_axis_moment }})
+                                    </td>
+                                    <td>
+                                        ({{ value.x_axis_moment_norm }}, {{ value.y_axis_moment_norm }})
+                                    </td>
+
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
